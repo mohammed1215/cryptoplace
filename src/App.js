@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import { Header } from "./components/Header";
+import { Home } from "./components/Home";
+import { Route, Routes } from "react-router-dom";
+import { Coin } from "./components/Coin";
+import { Footer } from "./components/Footer";
 
 function App() {
+  const [coin_type, setCoin_Type] = useState("usd");
+  console.log("from app the coin type is ", coin_type);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header setCoin_Type={setCoin_Type} />
+      <Routes>
+        <Route path={"/"} element={<Home coin_type={coin_type} />} />
+        <Route
+          path={"/coin/:coinName"}
+          element={<Coin coin_type={coin_type} />}
+        />
+      </Routes>
+      <Footer />
     </div>
   );
 }
